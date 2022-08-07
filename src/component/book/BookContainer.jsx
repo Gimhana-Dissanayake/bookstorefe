@@ -2,7 +2,7 @@ import React,{useEffect} from 'react'
 import {Box} from '@material-ui/core';
 import  Skeleton from '@material-ui/lab/Skeleton';
 import { useDispatch, useSelector } from 'react-redux';
-import getBooksAction from '../../module/book/bookAction';
+import {getBooksAction} from '../../module/book/bookAction';
 import { getBooksSelector, getBookPromiseSelector } from '../../module/book/bookSelector'
 import BookFilter from './BookFilter';
 import styles from './BookStyles';
