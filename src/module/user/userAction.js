@@ -2,15 +2,29 @@ import { login } from "./userService"
 
 
 export const loginAction = (email, password) => async (dispatch) =>{
-    // issue axios request to login api
-    const response = await login(email, password);
+   try{
 
-    // save jwt token inside local storage
-    window.localStorage.setItem("bookstore-token", response.data.token);
+    dispatch({type:'USER_PENDING'})
 
-    // dispatch redux action
-    dispatch({
-        type:'USER_LOGIN',
-        payload:response.data
-    })
+
+
+     // issue axios request to login api
+     const response = await login(email, password);
+
+    
+
+     // save jwt token inside local storage
+     window.localStorage.setItem("bookstore-token", response.data.token);
+ 
+     // dispatch redux action
+     dispatch({
+         type:'USER_LOGIN',
+         payload:response.data
+     })
+
+     dispatch({type:'USER_SUCCESS'})
+   }catch{
+    console.log("RES fasdfas")
+    dispatch({type:'USER_ERROR'})
+   }
 }

@@ -4,8 +4,11 @@ import { TextField, Typography, Paper, Button } from "@mui/material";
 import makeStyle from "./LoginSytle";
 import * as yup from "yup";
 import { useFormik } from "formik";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { loginAction } from "../../module/user/userAction";
+import { getUserPromise } from "../../module/user/userSelector";
+import { useSnackbar } from "notistack";
+import { useEffect } from "react";
 
 const validationSchema = yup.object({
   email: yup
@@ -21,6 +24,20 @@ const validationSchema = yup.object({
 const Login = () => {
   const classes = makeStyle();
   const dispatch = useDispatch();
+  const loginPromise = useSelector(getUserPromise);
+  const { enqueueSnackbar } = useSnackbar();
+
+  useEffect(() => {
+    if (loginPromise.isErrorOcurred) {
+      enqueueSnackbar("Username or password wrong!", {
+        variant: "error",
+      });
+    } else if (loginPromise.isFullfilled) {
+      enqueueSnackbar("Login Success", {
+        variant: "success",
+      });
+    }
+  }, [loginPromise, enqueueSnackbar]);
 
   const formik = useFormik({
     initialValues: {
@@ -69,6 +86,7 @@ const Login = () => {
             type="submit"
             variant="contained"
             color="primary"
+            disabled={loginPromise.isPending}
           >
             Login
           </Button>

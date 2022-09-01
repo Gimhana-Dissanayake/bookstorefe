@@ -1,21 +1,41 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import {Provider} from 'react-redux';
-import reduxThunk from 'redux-thunk';
-import {createStore, applyMiddleware} from 'redux';
-import App from './component/App';
-import reportWebVitals from './reportWebVitals';
-import reducers from './module'
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import { Provider } from "react-redux";
+import reduxThunk from "redux-thunk";
+import { createStore, applyMiddleware } from "redux";
+import App from "./component/App";
+import reportWebVitals from "./reportWebVitals";
+import reducers from "./module";
+import axios from "axios";
 
-const createStoreWithMiddleware = applyMiddleware(reduxThunk)(createStore)
+const createStoreWithMiddleware = applyMiddleware(reduxThunk)(createStore);
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(  
-  <Provider store={createStoreWithMiddleware(reducers, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())}>
+axios.interceptors.request.use(
+  (config) => {
+    const token = window.localStorage.getItem("bookstore-token");
+    if (token != null) {
+      config.headers.Authorization = token;
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
+
+root.render(
+  <Provider
+    store={createStoreWithMiddleware(
+      reducers,
+      window.__REDUX_DEVTOOLS_EXTENSION__ &&
+        window.__REDUX_DEVTOOLS_EXTENSION__()
+    )}
+  >
     <App />
-    </Provider>
-
+  </Provider>
 );
 
 // If you want to start measuring performance in your app, pass a function
