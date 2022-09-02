@@ -1,5 +1,5 @@
 export const USER_INITIAL_STATE = {
-    token:'',
+    token: window.localStorage.getItem("bookstore-token"),
     promise:{
         isPending:false,
         isFullfilled:false,

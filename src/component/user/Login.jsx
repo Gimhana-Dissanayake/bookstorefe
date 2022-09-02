@@ -9,6 +9,7 @@ import { loginAction } from "../../module/user/userAction";
 import { getUserPromise } from "../../module/user/userSelector";
 import { useSnackbar } from "notistack";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const validationSchema = yup.object({
   email: yup
@@ -26,6 +27,7 @@ const Login = () => {
   const dispatch = useDispatch();
   const loginPromise = useSelector(getUserPromise);
   const { enqueueSnackbar } = useSnackbar();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (loginPromise.isErrorOcurred) {
@@ -36,8 +38,9 @@ const Login = () => {
       enqueueSnackbar("Login Success", {
         variant: "success",
       });
+      navigate("/");
     }
-  }, [loginPromise, enqueueSnackbar]);
+  }, [loginPromise, enqueueSnackbar, navigate]);
 
   const formik = useFormik({
     initialValues: {

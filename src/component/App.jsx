@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import BookContainer from "./book/BookContainer";
 import Login from "./user/Login";
 import { SnackbarProvider } from "notistack";
+import Auth from "./Auth";
 
 function App() {
   return (
@@ -13,7 +14,15 @@ function App() {
         <Layout>
           <Routes>
             <Route path="/login" element={<Login />} />
-            <Route exact path="/" element={<BookContainer />} />
+            <Route
+              exact
+              path="/"
+              element={
+                <Auth>
+                  <BookContainer />
+                </Auth>
+              }
+            />
           </Routes>
         </Layout>
       </Router>
