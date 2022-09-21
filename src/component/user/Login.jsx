@@ -1,7 +1,6 @@
 import React from "react";
-import { Box } from "@material-ui/core";
-import { TextField, Typography, Paper, Button } from "@mui/material";
-import makeStyle from "./LoginSytle";
+import { Box } from "@mui/material";
+import { TextField, Typography, Button } from "@mui/material";
 import * as yup from "yup";
 import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
@@ -23,7 +22,6 @@ const validationSchema = yup.object({
 });
 
 const Login = () => {
-  const classes = makeStyle();
   const dispatch = useDispatch();
   const loginPromise = useSelector(getUserPromise);
   const { enqueueSnackbar } = useSnackbar();
@@ -59,48 +57,66 @@ const Login = () => {
 
   return (
     <form autoComplete="off" noValidate onSubmit={formik.handleSubmit}>
-      <Box className={classes.wrapper}>
-        <Paper className={classes.paper}>
-          <Typography variant="h4">Book store Login</Typography>
-          <TextField
-            className={classes.topMargin}
-            name="email"
-            id="email"
-            data-testid="email-testid"
-            label="Enter email address"
-            variant="outlined"
-            placeholder="Enter email address"
-            value={formik.values.email}
-            onChange={formik.handleChange}
-            helperText={formik.touched.email && formik.errors.email}
-            error={formik.touched.email && Boolean(formik.errors.email)}
-          />
-          <TextField
-            className={classes.topMargin}
-            name="password"
-            id="password"
-            data-testid="password-testid"
-            label="Enter password"
-            variant="outlined"
-            placeholder="Enter password"
-            value={formik.values.password}
-            onChange={formik.handleChange}
-            helperText={formik.touched.password && formik.errors.password}
-            error={formik.touched.password && Boolean(formik.errors.password)}
-          />
-          <Button
-            className={classes.topMargin}
-            type="submit"
-            variant="contained"
-            color="primary"
-            disabled={loginPromise.isPending}
-          >
-            Login
-          </Button>
-          <br />
+      <Box
+        display="flex"
+        flexDirection="column"
+        maxWidth={400}
+        alignItems="center"
+        justifyContent="center"
+        margin="auto"
+        marginTop={5}
+        padding={5}
+        borderRadius={5}
+        boxShadow={"5px 5px 10px #ccc"}
+        sx={{
+          ":hover": {
+            boxShadow: "10px 10px 20px #ccc",
+          },
+        }}
+      >
+        <Typography variant="h4" padding={3} textAlign="center">
+          Book Store Login
+        </Typography>
+        <TextField
+          name="email"
+          id="email"
+          data-testid="email-testid"
+          label="Enter email address"
+          variant="outlined"
+          placeholder="Enter email address"
+          value={formik.values.email}
+          onChange={formik.handleChange}
+          helperText={formik.touched.email && formik.errors.email}
+          error={formik.touched.email && Boolean(formik.errors.email)}
+          margin="normal"
+        />
+        <TextField
+          name="password"
+          id="password"
+          data-testid="password-testid"
+          label="Enter password"
+          variant="outlined"
+          placeholder="Enter password"
+          value={formik.values.password}
+          onChange={formik.handleChange}
+          helperText={formik.touched.password && formik.errors.password}
+          error={formik.touched.password && Boolean(formik.errors.password)}
+          margin="normal"
+        />
+        <Button
+          type="submit"
+          variant="contained"
+          color="primary"
+          disabled={loginPromise.isPending}
+          sx={{ marginTop: 3, borderRadius: 3 }}
+        >
+          Login
+        </Button>
+        <br />
 
-          <button onClick={handleRegister}>Register</button>
-        </Paper>
+        <Button sx={{ marginTop: 3, borderRadius: 3 }} onClick={handleRegister}>
+          Register
+        </Button>
       </Box>
     </form>
   );

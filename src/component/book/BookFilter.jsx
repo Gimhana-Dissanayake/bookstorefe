@@ -12,7 +12,7 @@ const BookFilter = () => {
   return (
     <Box className={classes.bookFilter}>
       <Paper className={classes.bookFilterPaper}>
-        <Typography>Search Book Filters</Typography>
+        <Typography>Search Books</Typography>
         <Box paddingTop={3} marginBottom={2}>
           <TextField
             placeholder="Enter book title"

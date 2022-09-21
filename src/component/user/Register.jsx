@@ -1,5 +1,5 @@
 import React from "react";
-import { Typography, Box, Paper, TextField, Button } from "@mui/material";
+import { Typography, Box, TextField, Button } from "@mui/material";
 import * as yup from "yup";
 import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
@@ -7,7 +7,6 @@ import { registerAction } from "../../module/user/userAction";
 import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
 
-import registerStyle from "./RegisterStyles";
 import { getUserRegisterPromise } from "../../module/user/userSelector";
 import { useEffect } from "react";
 
@@ -24,7 +23,6 @@ const validationSchema = yup.object({
 });
 
 const Register = () => {
-  const classes = registerStyle();
   const registerPromise = useSelector(getUserRegisterPromise);
   const dispatch = useDispatch();
 
@@ -53,63 +51,87 @@ const Register = () => {
     },
   });
 
+  const handleLogin = () => {
+    navigate("/login");
+  };
+
   return (
-    <Box className={classes.wrapper}>
-      <Typography className={classes.heading}>User Registration</Typography>
-      <form autoComplete="off" noValidate onSubmit={registerForm.handleSubmit}>
-        <Paper className={classes.paper}>
-          <TextField
-            className={classes.margin12}
-            id="name"
-            name="name"
-            variant="outlined"
-            label="Enter username"
-            value={registerForm.values.name}
-            onChange={registerForm.handleChange}
-            helperText={registerForm.touched.name && registerForm.errors.name}
-            error={
-              registerForm.touched.name && Boolean(registerForm.errors.name)
-            }
-          />
-          <TextField
-            className={classes.margin12}
-            id="email"
-            name="email"
-            variant="outlined"
-            label="Enter email address"
-            value={registerForm.values.email}
-            onChange={registerForm.handleChange}
-            helperText={registerForm.touched.email && registerForm.errors.email}
-            error={
-              registerForm.touched.email && Boolean(registerForm.errors.email)
-            }
-          />
-          <TextField
-            id="password"
-            name="password"
-            variant="outlined"
-            label="Enter password"
-            value={registerForm.password}
-            onChange={registerForm.handleChange}
-            helperText={
-              registerForm.touched.password && registerForm.errors.password
-            }
-            error={
-              registerForm.touched.password &&
-              Boolean(registerForm.errors.password)
-            }
-          />
-          <Button
-            className={classes.button}
-            type="submit"
-            variant="contained"
-            color="primary"
-          >
-            Register
-          </Button>
-        </Paper>
-      </form>
-    </Box>
+    <form autoComplete="off" noValidate onSubmit={registerForm.handleSubmit}>
+      <Box
+        display="flex"
+        flexDirection="column"
+        maxWidth={400}
+        alignItems="center"
+        justifyContent="center"
+        margin="auto"
+        marginTop={5}
+        padding={5}
+        borderRadius={5}
+        boxShadow={"5px 5px 10px #ccc"}
+        sx={{
+          ":hover": {
+            boxShadow: "10px 10px 20px #ccc",
+          },
+        }}
+      >
+        <Typography variant="h4" padding={3}>
+          User Registration
+        </Typography>
+
+        <TextField
+          id="name"
+          name="name"
+          variant="outlined"
+          label="Enter username"
+          value={registerForm.values.name}
+          onChange={registerForm.handleChange}
+          helperText={registerForm.touched.name && registerForm.errors.name}
+          error={registerForm.touched.name && Boolean(registerForm.errors.name)}
+          margin="normal"
+        />
+        <TextField
+          id="email"
+          name="email"
+          variant="outlined"
+          label="Enter email address"
+          value={registerForm.values.email}
+          onChange={registerForm.handleChange}
+          helperText={registerForm.touched.email && registerForm.errors.email}
+          error={
+            registerForm.touched.email && Boolean(registerForm.errors.email)
+          }
+          margin="normal"
+        />
+        <TextField
+          id="password"
+          name="password"
+          variant="outlined"
+          label="Enter password"
+          value={registerForm.password}
+          onChange={registerForm.handleChange}
+          helperText={
+            registerForm.touched.password && registerForm.errors.password
+          }
+          error={
+            registerForm.touched.password &&
+            Boolean(registerForm.errors.password)
+          }
+          margin="normal"
+        />
+
+        <Button
+          sx={{ marginTop: 3, borderRadius: 3 }}
+          type="submit"
+          variant="contained"
+          color="primary"
+        >
+          Register
+        </Button>
+        <Button sx={{ marginTop: 3, borderRadius: 3 }} onClick={handleLogin}>
+          Login
+        </Button>
+      </Box>
+    </form>
   );
 };
 
