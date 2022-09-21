@@ -4,7 +4,13 @@ export const USER_INITIAL_STATE = {
         isPending:false,
         isFullfilled:false,
         isErrorOcurred:false,
-      }
+      },
+      registerPromise:{
+        isPending:false,
+        isFullfilled:false,
+        isErrorOcurred:false,
+      },
+      user:null,
 }
 
 const userReducer = (state = USER_INITIAL_STATE, action) =>{
@@ -40,6 +46,42 @@ const userReducer = (state = USER_INITIAL_STATE, action) =>{
               }
             }
           }
+
+          // register action
+
+          case 'USER_REGISTER':{
+            return {
+              ...state,
+              user:action.payload
+            }
+          }
+
+          case "USER_REGISTER_PENDING":{
+            return {
+              ...state,
+              registerPromise:{
+                isPending:true, isFullfilled:false, isErrorOcurred:false
+              }
+            }
+          }
+          case "USER_REGISTER_SUCCESS":{
+            return {
+              ...state,
+              registerPromise:{
+                isPending:false, isFullfilled:true, isErrorOcurred:false
+              }
+            }
+          }
+          case "USER_REGISTER_ERROR":{
+            return {
+              ...state,
+              registerPromise:{
+                isPending:false, isFullfilled:false, isErrorOcurred:true
+              }
+            }
+          }
+
+
         default:{
             return state;
         }

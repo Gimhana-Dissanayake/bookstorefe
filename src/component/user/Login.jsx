@@ -53,6 +53,10 @@ const Login = () => {
     },
   });
 
+  const handleRegister = () => {
+    navigate("/register");
+  };
+
   return (
     <form autoComplete="off" noValidate onSubmit={formik.handleSubmit}>
       <Box className={classes.wrapper}>
@@ -93,6 +97,9 @@ const Login = () => {
           >
             Login
           </Button>
+          <br />
+
+          <button onClick={handleRegister}>Register</button>
         </Paper>
       </Box>
     </form>

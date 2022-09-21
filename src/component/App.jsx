@@ -6,6 +6,7 @@ import BookContainer from "./book/BookContainer";
 import Login from "./user/Login";
 import { SnackbarProvider } from "notistack";
 import Auth from "./Auth";
+import Register from "./user/Register";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Layout>
           <Routes>
             <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
             <Route
               exact
               path="/"
